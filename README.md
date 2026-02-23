@@ -186,6 +186,8 @@ Every audited event records actor, command, args, exit code, result code, `prev_
 
 - Notion setup and worklog import:
   - `docs/notion-worklogs-setup.md`
+- Security:
+  - `docs/security/threat-model.md`
 - Module guides:
   - `docs/modules/cli.md`
   - `docs/modules/invoice.md`
