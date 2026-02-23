@@ -1,0 +1,59 @@
+profile: dev
+log:
+  format: console
+  level: info
+modules:
+  # Available: invoice, records (tax is runtime-only and auto-included for invoice)
+  enabled: [invoice]
+agent_policy:
+  enabled: false
+  allowed_commands: [invoice.list, invoice.preview]
+  invoice_id_regex: "^[a-zA-Z0-9-]{8,64}$"
+  max_list_limit: 50
+  # Strict allowlists for agent-driven records mutations (create/update/archive).
+  records_allowed_collections: []
+  records_allowed_properties: []
+audit:
+  enabled: false
+  path: audit/biz-audit.log
+  signing_key: ""
+  strict: true
+  dir_perm: 448
+  file_perm: 384
+notion:
+  token: ""
+  base_url: https://api.notion.com/v1
+  invoice_db_id: ""
+  # Optional aliases for generic records module (records list/create/schema ...).
+  collections: {}
+  read_timeout: 10s
+  retry_count: 3
+  retry_backoff_ms: 200
+invoice:
+  output_dir: invoices
+  output_base_dir: ""
+  template_path: templates/invoice/default.html.tmpl
+  source: notion
+  fallback_file: ""
+  currency_allow_list: [USD, EUR, GBP]
+  create_timeout: 60s
+  pdf_timeout: 30s
+  idempotency_store: invoices/.idempotency.json
+  default_status_query: "Ready to Invoice"
+  default_list_limit: 20
+  default_preview_format: pdf
+  default_upload_notion: false
+  allow_notion_mutations: false
+  require_mutation_confirm: true
+  max_render_html_bytes: 1048576
+  renderer_no_sandbox: false
+  renderer_disable_javascript: true
+  renderer_disable_dev_shm_usage: true
+  renderer_chrome_path: ""
+tax:
+  default_region: US
+  required: false
+  rates:
+    US: 0
+    CA: 0.13
+    EU: 0.20

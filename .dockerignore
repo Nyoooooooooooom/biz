@@ -1,0 +1,7 @@
+.git
+.gocache
+.gomodcache
+bin
+invoices
+config.yaml
+*.log

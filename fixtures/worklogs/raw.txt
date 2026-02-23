@@ -1,0 +1,11 @@
+01-23-2026 - 2hr - worked with Validus and Pak Energy to get their exported meter data correct
+
+01-27-2026 - 30min - Discussion about shutting down web server
+
+01-30-2026 - 1hr - Met with Scott Murphy and Kendell Burnside from Onping to help with Validus Exports
+
+02-12-2026 - 3hr - 455908 - Obtained access to Web server with ImageNet. We (Kyle and I)had a phone call and ran into complications with their authentication system. After access I went full exploration mode so we can safely shut down the server. Responded with findings in ImageNet email.
+
+02/13/2026 - 1.5hr - fixed cfx imports failing to transfer from topserver to Flowcal Servers. Caused by personal password changes the day earlier in the quest to shutdown old web server. I requested that ImageNet
+
+02/18/2026 - 30min - Updated schedule task credentials for imports

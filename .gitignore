@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+
+# Secrets/local config
+config.yaml
+.env
+.env.*
+!.env.example
+
+# Build/test artifacts
+bin/
+invoices/
+.gocache/
+.gomodcache/
+coverage.out
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/

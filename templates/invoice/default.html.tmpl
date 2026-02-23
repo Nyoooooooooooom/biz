@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Invoice {{ .Draft.InvoiceNumber }}</title>
+  <style>
+    body { font-family: Helvetica, Arial, sans-serif; margin: 32px; color: #111; }
+    h1 { margin: 0 0 8px 0; font-size: 24px; }
+    .meta { margin: 4px 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #f4f4f4; }
+    .totals { margin-top: 20px; width: 320px; margin-left: auto; }
+    .totals td { border: none; }
+  </style>
+</head>
+<body>
+  <h1>Invoice {{ .Draft.InvoiceNumber }}</h1>
+  <div class="meta"><strong>Client:</strong> {{ .Draft.ClientName }}</div>
+  <div class="meta"><strong>Issue Date:</strong> {{ .Draft.IssueDate.Format "2006-01-02" }}</div>
+  <div class="meta"><strong>Due Date:</strong> {{ .Draft.DueDate.Format "2006-01-02" }}</div>
+  <div class="meta"><strong>Currency:</strong> {{ .Draft.Currency }}</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Discount</th>
+        <th>Line Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range .Draft.LineItems }}
+      <tr>
+        <td>{{ .Description }}</td>
+        <td>{{ printf "%.2f" .Quantity }}</td>
+        <td>{{ printf "%.2f" .UnitRate }}</td>
+        <td>{{ printf "%.2f" .Discount }}</td>
+        <td>{{ printf "%.2f" (lineTotal .Quantity .UnitRate .Discount) }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+
+  <table class="totals">
+    <tr><td>Subtotal</td><td>{{ printf "%.2f" .Totals.Subtotal }}</td></tr>
+    <tr><td>Tax</td><td>{{ printf "%.2f" .Totals.Tax }}</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>{{ printf "%.2f" .Totals.Total }}</strong></td></tr>
+  </table>
+</body>
+</html>

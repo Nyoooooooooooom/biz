@@ -1,0 +1,32 @@
+{
+  "invoices": [
+    {
+      "page_id": "demo-page-1",
+      "invoice_number": "INV-2026-0001",
+      "client_name": "Acme Industries",
+      "client_location": "US",
+      "issue_date": "2026-02-01T00:00:00Z",
+      "due_date": "2026-02-15T00:00:00Z",
+      "currency": "USD",
+      "status": "Ready to Invoice",
+      "last_edited_time": "2026-02-01T12:00:00Z",
+      "notes": "Thank you for your business.",
+      "line_items": [
+        {
+          "description": "Fractional CTO Advisory",
+          "quantity": 5,
+          "unit_rate": 250,
+          "discount": 0,
+          "sort_order": 1
+        },
+        {
+          "description": "Architecture Review",
+          "quantity": 2,
+          "unit_rate": 400,
+          "discount": 50,
+          "sort_order": 2
+        }
+      ]
+    }
+  ]
+}
